@@ -69,7 +69,7 @@
 
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.6rem; /* Slightly larger logo text */
+            font-size: clamp(1.4rem, 2.5vw, 1.6rem); /* Fluid font size for brand */
             color: var(--primary-color);
             transition: color var(--transition-speed);
         }
@@ -84,7 +84,7 @@
         }
 
         .nav-link {
-            font-size: 1.1rem; /* Consistent font size for links */
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem); /* Fluid font size for links */
             font-weight: 500;
             color: var(--light-text-color); /* More subtle link color */
             transition: color var(--transition-speed), transform var(--transition-speed);
@@ -107,7 +107,7 @@
             margin-left: 1.8rem; /* Increased spacing between nav items */
         }
 
-        @media (max-width: 991px) {
+        @media (max-width: 991px) { /* Tablets and larger mobiles */
             .navbar-nav {
                 margin-left: 0;
                 margin-top: 15px; /* Spacing for collapsed menu */
@@ -186,12 +186,13 @@
         }
 
         .animated-image {
-            max-width: 120px; /* Slightly smaller for better fit with text */
+            /* ADJUSTMENT HERE for bigger and visible images */
+            max-width: 200px; /* Increased max-width for prominence */
             height: auto;
-            margin: 0 auto 25px auto; /* Centered with bottom margin */
-            display: block; /* Ensure it's a block element for margin auto */
+            margin: 0 auto 35px auto; /* Centered with more bottom margin for separation */
+            display: block;
             transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); /* Subtle shadow for image */
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); /* Slightly stronger shadow for visibility */
         }
 
         /* Keyframe adjustments for more subtle animation */
@@ -410,8 +411,6 @@
         }
 
         h2 {
-            margin-top: 0;
-            color: var(--primary-color);
             font-size: clamp(1.8rem, 3vw, 2.5rem); /* Fluid heading size */
             margin-bottom: 1.8rem;
             border-bottom: 2px solid var(--primary-color);
@@ -651,20 +650,23 @@
         }
 
         /* Responsive Design - Refined breakpoints and scaling */
-        @media (max-width: 991px) { /* Tablets and larger mobiles */
+        @media (max-width: 991px) { /* Tablets and larger mobiles (e.g., iPad portrait) */
+            body {
+                padding-top: 70px; /* Adjust body padding for mobile nav */
+            }
             .form-wrapper {
-                flex-direction: column;
+                flex-direction: column; /* Stack info and form side */
             }
             .info-side {
-                min-height: 250px; /* Taller info side on mobile */
+                min-height: 280px; /* Taller info side on mobile for better visual */
                 padding: 20px;
-                flex: none; /* Remove flex sizing */
+                flex: none; /* Remove flex sizing to allow min-height to work */
             }
             .blockquote-wrapper {
                 padding: 10px;
             }
             .animated-image {
-                max-width: 100px; /* Adjust size for smaller screens */
+                max-width: 180px; /* Consistent larger size for tablets/larger mobiles */
             }
             .form-side {
                 padding: 40px 25px;
@@ -700,7 +702,7 @@
             .result-button,
             .my-form__button {
                 width: 100%;
-                max-width: 350px; /* Constrain width for buttons */
+                max-width: 350px; /* Constrain width for buttons, prevents stretching too wide on tablets */
                 margin-right: 0;
                 margin-bottom: 1rem;
             }
@@ -715,15 +717,19 @@
             }
         }
 
-        @media (max-width: 576px) { /* Smaller phones */
+        @media (max-width: 576px) { /* Smaller phones (e.g., iPhone SE) */
             body {
-                padding-top: 70px;
+                padding-top: 60px; /* Further adjust body padding for smaller mobile nav */
+            }
+            .navbar {
+                 padding-top: 15px; /* Slightly smaller padding for smaller nav */
+                 padding-bottom: 15px;
             }
             .navbar-brand {
-                font-size: 1.4rem;
+                font-size: 1.3rem; /* Smaller brand text */
             }
             .navbar-brand img {
-                height: 40px;
+                height: 38px; /* Smaller logo image */
             }
             .container {
                 padding: 20px 15px;
@@ -736,10 +742,10 @@
                 margin-bottom: 25px;
             }
             .form-welcome-row h1 {
-                font-size: 1.6rem;
+                font-size: clamp(1.5rem, 6vw, 2.2rem); /* More aggressive fluid scaling */
             }
             .form-welcome-row h2 {
-                font-size: 1.1rem;
+                font-size: clamp(1rem, 4vw, 1.4rem); /* More aggressive fluid scaling */
                 margin-bottom: 30px;
             }
             .text-field {
@@ -757,28 +763,50 @@
                 margin-top: 20px;
             }
             .upload-section, .result-section, .about-section {
-                padding: 2rem;
-                margin-bottom: 2rem;
+                padding: 1.5rem; /* Reduced padding for very small screens */
+                margin-bottom: 1.5rem;
+            }
+            h2 {
+                font-size: clamp(1.5rem, 5vw, 2.2rem); /* Fluid heading size for sections */
+                margin-bottom: 1.2rem;
+                padding-bottom: 0.6rem;
             }
             .dropzone {
-                padding: 3rem;
+                padding: 2.5rem; /* Reduced padding */
             }
             .dropzone i {
                 font-size: 3rem;
             }
             .preview-container {
-                height: 220px;
+                height: 200px; /* Smaller preview on very small screens */
             }
             .text-output {
-                height: 200px;
+                height: 180px; /* Smaller text area on very small screens */
                 padding: 1rem;
+                font-size: 0.95rem;
             }
             .text-stats {
                 padding: 0.7rem;
+                font-size: 0.9rem;
             }
             .button-group, .result-button-group {
-                gap: 0.8rem;
-                margin-top: 2rem;
+                gap: 0.7rem;
+                margin-top: 1.5rem;
+            }
+            .upload-button,
+            .clear-button,
+            .copy-button,
+            .download-button,
+            .result-button,
+            .my-form__button {
+                padding: 0.8rem 1.5rem; /* Smaller button padding */
+                font-size: 0.95rem;
+                margin-bottom: 0.8rem;
+                max-width: 300px; /* Tighter max-width for buttons */
+            }
+            .footer-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
 
@@ -807,14 +835,16 @@
             flex-direction: column; /* Default to column for general pages like upload/about */
             flex-grow: 1;
         }
-        /* Override for login/signup to keep side-by-side */
-        #login-page.active, #signup-page.active {
-            display: flex;
-            flex-direction: row;
+        /* Override for login/signup to keep side-by-side on larger screens */
+        @media (min-width: 992px) { /* Only apply row layout on desktop/large tablets */
+            #login-page.active, #signup-page.active {
+                display: flex;
+                flex-direction: row;
+            }
         }
-
+        /* For upload and about pages, they should always be block for flow */
         #upload-page.active, #about-page.active {
-            display: block; /* Block for regular content pages */
+            display: block;
         }
     </style>
 </head>
@@ -1176,12 +1206,13 @@
                     const usernameInput = document.getElementById('login-username');
                     const passwordInput = document.getElementById('login-password');
                     const usernameError = loginForm.querySelector('.username-error');
-                    const passwordError = loginForm.querySelector('.password-error');
+                    const passwordError = loginForm.querySelector('.password-error'); // This is hidden in CSS, but good to have
 
                     let isValid = true;
 
                     // Dummy validation for username pattern
-                    if (!usernameInput.checkValidity()) {
+                    // Note: HTML5 pattern validation will also fire, but this JS provides more control
+                    if (usernameInput.value.length === 0 || !/^[a-zA-Z][a-zA-Z0-9_]*$/.test(usernameInput.value)) {
                         usernameError.style.display = 'block';
                         isValid = false;
                     } else {
@@ -1189,7 +1220,7 @@
                     }
 
                     // For password, we allow any for mock, but if you wanted pattern validation:
-                    // if (!passwordInput.checkValidity()) {
+                    // if (passwordInput.value.length === 0 || !/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/.test(passwordInput.value)) {
                     //     passwordError.style.display = 'block';
                     //     isValid = false;
                     // } else {
@@ -1203,6 +1234,7 @@
                             showToast('Login successful!', 'success');
                             showPage('upload-page'); // Redirect to upload page on successful dummy login
                         } else {
+                            // This case should ideally be caught by initial validation
                             showToast('Please enter username and password.', 'error');
                         }
                     } else {
@@ -1220,18 +1252,18 @@
                     const passwordInput = document.getElementById('signup-password');
                     const usernameError = signupForm.querySelector('.username-error');
                     const emailError = signupForm.querySelector('.email-error');
-                    const passwordError = signupForm.querySelector('.password-error');
+                    const passwordError = signupForm.querySelector('.password-error'); // This is hidden in CSS, but good to have
 
                     let isValid = true;
 
-                    if (!usernameInput.checkValidity()) {
+                    if (usernameInput.value.length === 0 || !/^[a-zA-Z][a-zA-Z0-9_]*$/.test(usernameInput.value)) {
                         usernameError.style.display = 'block';
                         isValid = false;
                     } else {
                         usernameError.style.display = 'none';
                     }
 
-                    if (!emailInput.checkValidity()) {
+                    if (emailInput.value.length === 0 || !/^\S+@\S+\.\S+$/.test(emailInput.value)) { // Basic email pattern
                         emailError.style.display = 'block';
                         isValid = false;
                     } else {
@@ -1239,7 +1271,7 @@
                     }
 
                     // For password, we allow any for mock, but if you wanted pattern validation:
-                    // if (!passwordInput.checkValidity()) {
+                    // if (passwordInput.value.length === 0 || !/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(passwordInput.value)) {
                     //     passwordError.style.display = 'block';
                     //     isValid = false;
                     // } else {
@@ -1253,6 +1285,7 @@
                             showToast('Signup successful! Please login.', 'success');
                             showPage('login-page'); // Redirect to login page after dummy signup
                         } else {
+                            // This case should ideally be caught by initial validation
                             showToast('Please fill all fields.', 'error');
                         }
                     } else {
