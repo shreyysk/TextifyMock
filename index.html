@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEXTIFY AI - Mock</title>
-    <link rel="icon" href="https://placehold.co/32x32/6c63ff/ffffff?text=TX" type="image/x-icon" />
+    <link rel="icon" href="static/css/images/textify.png" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -110,8 +110,7 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
-            /* Updated background image link */
-            background-image: url('https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-image: url('static/css/images/background.jpg'); /* Updated background image link */
         }
 
         .info-side::before {
@@ -144,7 +143,7 @@
         }
 
         .animated-image {
-            max-width: 150px;
+            max-width: 150px; /* Adjusted for better appearance based on logo sizes */
             margin-bottom: 20px;
             transition: transform 1s ease-in-out, opacity 1s ease-in-out;
         }
@@ -722,14 +721,48 @@
         #upload-page.active, #about-page.active {
             display: block; /* Block for regular content pages */
         }
+
+        /* Styles from login.css/signup.css that might not be in index.html already */
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Adjusted slightly from login.html 10px vs index.html 15px */
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888; /* Added color for consistency */
+        }
+
+        /* Ensure error messages are styled for display when active */
+        .text-field .error-message {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-align: left;
+            display: none; /* Keep hidden by default, JS will toggle */
+        }
+        .text-field input:invalid ~ .error-message {
+             /* This applies only when validation fails and element is touched/submitted */
+             /* For a mock, JS will control visibility */
+        }
+
+        .success-message {
+            color: green;
+        }
+        .error-message.form-error { /* A distinct class for form-wide errors */
+            color: red;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" onclick="showPage('upload-page'); return false;">
-                <!-- Replaced with placeholder for invalid Google Drive link -->
-                <img src="https://via.placeholder.com/45x45/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" height="45"
+                <img src="static/css/images/textify.png" alt="TEXTIFY Logo" height="45"
                     class="d-inline-block align-top" />
                 TEXTIFY
             </a>
@@ -766,24 +799,22 @@
 
     <div id="toast" class="toast"></div>
 
-    <!-- Login Page -->
     <section id="login-page" class="page-section form-wrapper active">
         <aside class="info-side">
             <div class="blockquote-wrapper">
                 <div class="animated-content active">
-                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=TEXTIFY" alt="Image 1" class="animated-image" />
+                    <img src="static/css/images/textify.png" alt="Image 1" class="animated-image" />
                     <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
                 </div>
                 <div class="animated-content">
-                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=LOGO2" class="animated-image" />
+                    <img src="static/css/images/logo2.png" class="animated-image" />
                     <blockquote>Unlock the power of your documents. Extract text effortlessly and accurately.</blockquote>
                 </div>
             </div>
         </aside>
         <main class="form-side">
             <a href="#" onclick="showPage('login-page'); return false;" title="Logo">
-                <!-- Replaced with placeholder for invalid Google Drive link -->
-                <img src="https://via.placeholder.com/80x80/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" class="logo" />
+                <img src="static/css/images/textify.png" alt="TEXTIFY Logo" class="logo" />
             </a>
             <form class="my-form" id="login-form">
                 <div class="form-welcome-row">
@@ -818,7 +849,6 @@
                         required
                     />
                     <i class="fas fa-eye password-toggle"></i>
-                    <!-- Error message for password pattern is now hidden/removed as any password is allowed -->
                     <div class="error-message" style="display: none;">
                         Minimum 8 characters, maximum 12 characters, at least 1 uppercase letter, 1 number, and 1 symbol
                     </div>
@@ -834,24 +864,22 @@
         </main>
     </section>
 
-    <!-- Signup Page -->
     <section id="signup-page" class="page-section form-wrapper">
         <aside class="info-side">
             <div class="blockquote-wrapper">
                 <div class="animated-content active">
-                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=TEXTIFY" alt="Image 1" class="animated-image" />
+                    <img src="static/css/images/textify.png" alt="Image 1" class="animated-image" />
                     <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
                 </div>
                 <div class="animated-content">
-                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=LOGO2" class="animated-image" />
+                    <img src="static/css/images/logo2.png" class="animated-image" />
                     <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
                 </div>
             </div>
         </aside>
         <main class="form-side">
             <a href="#" onclick="showPage('login-page'); return false;" title="Logo">
-                <!-- Replaced with placeholder for invalid Google Drive link -->
-                <img src="https://via.placeholder.com/80x80/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" class="logo" />
+                <img src="static/css/images/textify.png" alt="TEXTIFY Logo" class="logo" />
             </a>
             <form class="my-form" id="signup-form">
                 <div class="form-welcome-row">
@@ -896,7 +924,6 @@
                     <div class="password-toggle">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <!-- Error message for password pattern is now hidden/removed as any password is allowed -->
                     <div class="error-message" style="display: none;">
                         Minimum 8 characters, maximum 15 characters, at least 1 uppercase letter, 1 number, and 1 symbol
                     </div>
@@ -912,7 +939,6 @@
         </main>
     </section>
 
-    <!-- Upload Page -->
     <section id="upload-page" class="page-section container">
         <main>
             <section class="upload-section">
@@ -972,7 +998,6 @@
         </main>
     </section>
 
-    <!-- About/Contact Us Page -->
     <section id="about-page" class="page-section container">
         <main>
             <section class="about-section">
@@ -1043,7 +1068,7 @@
             const animatedContents = document.querySelectorAll('.animated-content');
             let currentIndex = 0;
 
-            // Password Toggle
+            // Password Toggle (Updated to handle both login and signup forms)
             $(document).on('click', '.password-toggle', function () {
                 $(this).toggleClass('fa-eye fa-eye-slash');
                 var passwordField = $(this).siblings('input[type="password"], input[type="text"]');
@@ -1074,7 +1099,12 @@
 
                 currentIndex = nextIndex;
             }
+            // Ensure the first content is active on load
+            if (animatedContents.length > 0) {
+                animatedContents[0].classList.add('active');
+            }
             setInterval(showNextContent, 5000);
+
 
             // Dummy Login Functionality
             if (loginForm) {
