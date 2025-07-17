@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEXTIFY AI - Mock</title>
+    <link rel="icon" href="https://placehold.co/32x32/6c63ff/ffffff?text=TX" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* General Styles */
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #8a2be2;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px; /* Adjust based on navbar height */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1; /* Allow container to grow and push footer down */
+        }
+
+        /* Navbar Styles (from upload.html) */
+        .navbar {
+            z-index: 100;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                margin-left: 0;
+            }
+            .nav-item {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .navbar-toggler {
+            font-size: 1.25rem;
+        }
+
+        /* Login/Signup Form Styles (from login.html & signup.html) */
+        .form-wrapper {
+            display: flex;
+            min-height: calc(100vh - 70px); /* Adjust for navbar */
+            background-color: #f0f2f5;
+            flex-grow: 1;
+        }
+
+        .info-side {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            /* Updated background image link */
+            background-image: url('https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+        }
+
+        .info-side::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .blockquote-wrapper {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+        }
+
+        .animated-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .animated-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .animated-image {
+            max-width: 150px;
+            margin-bottom: 20px;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        .animated-content:not(.active) .animated-image {
+            transform: rotateY(90deg) scale(0.5);
+            opacity: 0;
+        }
+
+        .animated-content.active .animated-image {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+        }
+
+        .animated-content.next .animated-image {
+            transform: rotateY(-90deg) scale(1.2);
+            opacity: 0;
+        }
+
+        .animated-content.prev .animated-image {
+            transform: rotateY(90deg) scale(0.8);
+            opacity: 1;
+        }
+
+        .form-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-side .logo {
+            max-width: 80px;
+            margin-bottom: 30px;
+        }
+
+        .my-form {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .form-welcome-row h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .form-welcome-row h2 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .text-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .text-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .text-field input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-field input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+        }
+
+        /* Error messages for patterns are now hidden by default or removed */
+        .error-message {
+            color: #f44336;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-align: left;
+            display: none; /* Hidden by default as per request for any password */
+        }
+
+        .my-form__button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .my-form__button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .my-form__actions {
+            margin-top: 30px;
+        }
+
+        .my-form__row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .my-form__row a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .my-form__row a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            color: #aaa;
+        }
+
+        .divider-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        /* Upload Page Styles (from upload.html) */
+        h1 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .fadeInUp {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .upload-section,
+        .result-section,
+        .about-section {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover,
+        .result-section:hover,
+        .about-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Dropzone */
+        .dropzone {
+            border: 3px dashed #ccc;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dropzone:hover,
+        .dropzone.drag-over {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.05);
+            transform: scale(1.02);
+        }
+
+        .dropzone i {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 3.5rem;
+        }
+
+        #file-info {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Buttons */
+        .upload-button,
+        .clear-button,
+        .copy-button,
+        .download-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-right: 1rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+        }
+
+        .upload-button:hover,
+        .clear-button:hover,
+        .copy-button:hover,
+        .download-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+        }
+
+        .clear-button {
+            background-color: #f44336;
+        }
+
+        .clear-button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Loading Indicator */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .loading i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        /* Preview Container */
+        .preview-container {
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 100%;
+            height: 300px;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex; /* Added for centering content */
+            justify-content: center; /* Added for centering content */
+            align-items: center; /* Added for centering content */
+        }
+
+        .preview-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-container img,
+        .preview-container embed {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Result Section */
+        .result-flex-container {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        /* Result Container */
+        .result-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-output {
+            width: 100%;
+            height: 300px;
+            padding: 1.5rem;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .text-output:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
+        }
+
+        .text-stats {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #666;
+            background-color: #f0f2f5;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            text-align: center;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            display: none;
+            animation: slideDown 0.3s ease, fadeOut 0.3s ease 2.7s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translate(-50%, -100%);
+            }
+            to {
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .toast.success {
+            background-color: #4caf50;
+        }
+
+        .toast.error {
+            background-color: #f44336;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: auto; /* Push footer to the bottom */
+            color: #666;
+            font-size: 0.9rem;
+            padding: 1rem 0;
+            border-top: 1px solid #ccc;
+        }
+
+        /* Updated footer link styles */
+        .footer-link {
+            display: inline-block; /* Make it behave like a block for padding/margin */
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem; /* Slightly larger text */
+            box-shadow: 0 4px 10px rgba(108, 99, 255, 0.4); /* Initial shadow */
+            transition: all 0.3s ease; /* Smooth transitions for all properties */
+            margin-top: 10px; /* Add some space from the top of the footer */
+        }
+
+        .footer-link:hover {
+            background-color: var(--secondary-color); /* Change color on hover */
+            transform: translateY(-3px) scale(1.02); /* Lift and slightly enlarge */
+            box-shadow: 0 8px 15px rgba(108, 99, 255, 0.6); /* More prominent shadow on hover */
+            text-decoration: none; /* Remove underline on hover */
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-wrapper {
+                flex-direction: column;
+            }
+            .info-side {
+                min-height: 200px;
+            }
+            .form-side {
+                padding: 20px;
+            }
+            .result-flex-container {
+                flex-direction: column;
+            }
+            .preview-container {
+                max-width: 100%;
+                height: 250px;
+                margin-bottom: 1.5rem;
+            }
+            .button-container {
+                flex-direction: column;
+            }
+            .upload-button,
+            .clear-button,
+            .copy-button,
+            .download-button {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .upload-button:active,
+        .clear-button:active,
+        .copy-button:active,
+        .download-button:active {
+            animation: pulse 0.3s ease;
+        }
+
+        /* button group css */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .upload-button,
+        .clear-button {
+            flex: 0 1 auto;
+        }
+
+        @media (max-width: 576px) {
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .upload-button,
+            .clear-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .result-button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .result-button {
+            flex: 0 1 auto;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+        }
+
+        .result-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .result-button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .result-button {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Page specific display */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: flex; /* Use flex for login/signup layout */
+            flex-direction: column; /* Default to column for general pages */
+            flex-grow: 1;
+        }
+        /* Override for login/signup to keep side-by-side */
+        #login-page.active, #signup-page.active {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #upload-page.active, #about-page.active {
+            display: block; /* Block for regular content pages */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" onclick="showPage('upload-page'); return false;">
+                <!-- Replaced with placeholder for invalid Google Drive link -->
+                <img src="https://via.placeholder.com/45x45/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" height="45"
+                    class="d-inline-block align-top" />
+                TEXTIFY
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('upload-page'); return false;">
+                            <i class="fas fa-upload"></i> Upload Image
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('about-page'); return false;">
+                            <i class="fas fa-info-circle"></i> Contact Us
+                        </a>
+                    </li>
+                    <li class="nav-item" id="logout-nav-item" style="display: none;">
+                        <a class="nav-link" href="#" onclick="logoutUser(); return false;">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                    <li class="nav-item" id="login-nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('login-page'); return false;">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- Login Page -->
+    <section id="login-page" class="page-section form-wrapper active">
+        <aside class="info-side">
+            <div class="blockquote-wrapper">
+                <div class="animated-content active">
+                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=TEXTIFY" alt="Image 1" class="animated-image" />
+                    <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
+                </div>
+                <div class="animated-content">
+                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=LOGO2" class="animated-image" />
+                    <blockquote>Unlock the power of your documents. Extract text effortlessly and accurately.</blockquote>
+                </div>
+            </div>
+        </aside>
+        <main class="form-side">
+            <a href="#" onclick="showPage('login-page'); return false;" title="Logo">
+                <!-- Replaced with placeholder for invalid Google Drive link -->
+                <img src="https://via.placeholder.com/80x80/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" class="logo" />
+            </a>
+            <form class="my-form" id="login-form">
+                <div class="form-welcome-row">
+                    <h1>Welcome to TEXTIFY! &#128079;</h1>
+                    <h2>Login with your account!</h2>
+                </div>
+                <div class="divider">
+                    <div class="divider-line"></div>
+                </div>
+                <div class="text-field">
+                    <label for="login-username">Username</label>
+                    <input
+                        type="text"
+                        id="login-username"
+                        name="username"
+                        pattern="^[a-zA-Z][a-zA-Z0-9_]*$"
+                        placeholder="Your username"
+                        required
+                    />
+                    <div class="error-message">
+                        Username must start with a letter and can only contain letters, numbers, and underscores
+                    </div>
+                </div>
+                <div class="text-field password-field">
+                    <label for="login-password">Password</label>
+                    <input
+                        id="login-password"
+                        type="password"
+                        name="password"
+                        placeholder="Your password"
+                        title="Any password is allowed for this mock."
+                        required
+                    />
+                    <i class="fas fa-eye password-toggle"></i>
+                    <!-- Error message for password pattern is now hidden/removed as any password is allowed -->
+                    <div class="error-message" style="display: none;">
+                        Minimum 8 characters, maximum 12 characters, at least 1 uppercase letter, 1 number, and 1 symbol
+                    </div>
+                </div>
+                <button class="my-form__button" type="submit">Log In</button>
+                <div class="my-form__actions">
+                    <div class="my-form__row">
+                        <span>Don't have an account?</span>
+                        <a href="#" onclick="showPage('signup-page'); return false;" title="Sign Up"> Sign Up Now </a>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </section>
+
+    <!-- Signup Page -->
+    <section id="signup-page" class="page-section form-wrapper">
+        <aside class="info-side">
+            <div class="blockquote-wrapper">
+                <div class="animated-content active">
+                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=TEXTIFY" alt="Image 1" class="animated-image" />
+                    <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
+                </div>
+                <div class="animated-content">
+                    <img src="https://placehold.co/150x150/6c63ff/ffffff?text=LOGO2" class="animated-image" />
+                    <blockquote>Turn your Images/PDF's into Text with our cutting edge OCR image technology.</blockquote>
+                </div>
+            </div>
+        </aside>
+        <main class="form-side">
+            <a href="#" onclick="showPage('login-page'); return false;" title="Logo">
+                <!-- Replaced with placeholder for invalid Google Drive link -->
+                <img src="https://via.placeholder.com/80x80/FF0000/FFFFFF?text=Logo+Error" alt="TEXTIFY Logo" class="logo" />
+            </a>
+            <form class="my-form" id="signup-form">
+                <div class="form-welcome-row">
+                    <h1>Welcome to TEXTIFY! &#128079;</h1>
+                    <h2>Create your account!</h2>
+                </div>
+                <div class="text-field">
+                    <label for="signup-username">Username</label>
+                    <input
+                        class="input-field"
+                        type="text"
+                        id="signup-username"
+                        name="usrnm"
+                        pattern="^[a-zA-Z][a-zA-Z0-9_]*$"
+                        placeholder="Username"
+                        required
+                    />
+                    <div class="error-message">Username must start with a letter and can only contain letters, numbers, and underscores</div>
+                </div>
+                <div class="text-field">
+                    <label for="signup-email">Email</label>
+                    <input
+                        type="email"
+                        id="signup-email"
+                        name="email"
+                        autocomplete="off"
+                        placeholder="you@example.com"
+                        required
+                    />
+                    <div class="error-message">Email in incorrect format</div>
+                </div>
+                <div class="text-field password-field">
+                    <label for="signup-password">Password</label>
+                    <input
+                        id="signup-password"
+                        type="password"
+                        name="password"
+                        placeholder="Your password"
+                        title="Any password is allowed for this mock."
+                        required
+                    />
+                    <div class="password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <!-- Error message for password pattern is now hidden/removed as any password is allowed -->
+                    <div class="error-message" style="display: none;">
+                        Minimum 8 characters, maximum 15 characters, at least 1 uppercase letter, 1 number, and 1 symbol
+                    </div>
+                </div>
+                <button class="my-form__button" type="submit">Sign Up</button>
+                <div class="my-form__actions">
+                    <div class="my-form__row">
+                        <span>Already have an account?</span>
+                        <a href="#" onclick="showPage('login-page'); return false;" title="Login"> Login Here </a>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </section>
+
+    <!-- Upload Page -->
+    <section id="upload-page" class="page-section container">
+        <main>
+            <section class="upload-section">
+                <h2>Upload new File</h2>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div id="dropzone" class="dropzone">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <p><b><strong>Drag & Drop your file here or click to select</strong></b></p>
+                        <p>
+                            Transform your images/pdf into editable text instantly with our
+                            advanced Optical Character Recognition (OCR) technology. Just
+                            upload and watch as text is effortlessly extracted and ready for
+                            use!
+                        </p>
+                        <input type="file" id="file-input" name="file" accept="image/*,.pdf" hidden />
+                    </div>
+                    <div id="file-info"></div>
+                    <div class="button-group">
+                        <button type="submit" class="upload-button">
+                            Upload & Extract Text
+                        </button>
+                        <button type="button" id="clear-button" class="clear-button">
+                            Clear
+                        </button>
+                    </div>
+                </form>
+                <div id="loading" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Processing...
+                </div>
+            </section>
+
+            <section id="result-section" class="result-section" style="display: none">
+                <h2>Result:</h2>
+                <div class="result-flex-container">
+                    <div id="preview-container" class="preview-container"></div>
+                    <div id="result-container" class="result-container">
+                        <textarea id="text-output" class="text-output"
+                            placeholder="Extracted text will appear here..."></textarea>
+                        <div class="text-stats">
+                            Characters: <span id="char-count">0</span> | Words:
+                            <span id="word-count">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-button-group">
+                    <button id="copy-button" class="result-button" type="button">
+                        <i class="far fa-copy"></i> Copy Text
+                    </button>
+                    <button id="download-txt-button" class="result-button" type="button">
+                        <i class="fas fa-file-alt"></i> Download as TXT
+                    </button>
+                    <button id="download-pdf-button" class="result-button" type="button">
+                        <i class="fas fa-file-pdf"></i> Download as PDF
+                    </button>
+                </div>
+            </section>
+        </main>
+    </section>
+
+    <!-- About/Contact Us Page -->
+    <section id="about-page" class="page-section container">
+        <main>
+            <section class="about-section">
+                <h2>Contact Us</h2>
+                <p>Have questions, feedback, or need support? We'd love to hear from you!</p>
+                <form id="contact-form">
+                    <div class="mb-3">
+                        <label for="contact-name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="contact-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact-email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="contact-email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact-message" class="form-label">Message</label>
+                        <textarea class="form-control" id="contact-message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="my-form__button">Send Message</button>
+                </form>
+            </section>
+        </main>
+    </section>
+
+    <footer>
+        <p>
+            <a href="https://drive.google.com/file/d/147Xm-tBIV0DtRWrGqCxtGQcpfbjOgAGA/view?usp=drive_link"
+               target="_blank" rel="noopener noreferrer" class="footer-link">
+               <i class="fas fa-info-circle me-2"></i> Know more about the project
+            </a>
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Global state for logged in status
+        let isLoggedIn = false;
+
+        // Function to show a specific page and hide others
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            // Update navbar visibility based on login status
+            updateNavbarForLogin();
+        }
+
+        function updateNavbarForLogin() {
+            const logoutNavItem = document.getElementById('logout-nav-item');
+            const loginNavItem = document.getElementById('login-nav-item');
+
+            if (isLoggedIn) {
+                logoutNavItem.style.display = 'block';
+                loginNavItem.style.display = 'none';
+            } else {
+                logoutNavItem.style.display = 'none';
+                loginNavItem.style.display = 'block';
+            }
+        }
+
+        // --- Login/Signup Page Logic ---
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const animatedContents = document.querySelectorAll('.animated-content');
+            let currentIndex = 0;
+
+            // Password Toggle
+            $(document).on('click', '.password-toggle', function () {
+                $(this).toggleClass('fa-eye fa-eye-slash');
+                var passwordField = $(this).siblings('input[type="password"], input[type="text"]');
+                var passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                } else {
+                    passwordField.attr('type', 'password');
+                }
+            });
+
+            // Animated Content for Login/Signup
+            function showNextContent() {
+                animatedContents.forEach((content, index) => {
+                    if (index === currentIndex) {
+                        content.classList.remove('prev', 'next');
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+
+                const prevIndex = currentIndex === 0 ? animatedContents.length - 1 : currentIndex - 1;
+                const nextIndex = (currentIndex + 1) % animatedContents.length;
+
+                animatedContents[prevIndex].classList.add('prev');
+                animatedContents[nextIndex].classList.add('next');
+
+                currentIndex = nextIndex;
+            }
+            setInterval(showNextContent, 5000);
+
+            // Dummy Login Functionality
+            if (loginForm) {
+                loginForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const username = document.getElementById('login-username').value;
+                    const password = document.getElementById('login-password').value;
+
+                    // Simple dummy validation: only check if fields are not empty
+                    if (username && password) {
+                        isLoggedIn = true;
+                        showToast('Login successful!', 'success');
+                        showPage('upload-page'); // Redirect to upload page on successful dummy login
+                    } else {
+                        showToast('Please enter username and password.', 'error');
+                    }
+                });
+            }
+
+            // Dummy Signup Functionality
+            if (signupForm) {
+                signupForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const username = document.getElementById('signup-username').value;
+                    const email = document.getElementById('signup-email').value;
+                    const password = document.getElementById('signup-password').value;
+
+                    // Simple dummy validation: only check if fields are not empty
+                    if (username && email && password) {
+                        showToast('Signup successful! Please login.', 'success');
+                        showPage('login-page'); // Redirect to login page after dummy signup
+                    } else {
+                        showToast('Please fill all fields.', 'error');
+                    }
+                });
+            }
+
+            // --- Upload Page Logic ---
+            const dropzone = document.getElementById("dropzone");
+            const fileInput = document.getElementById("file-input");
+            const fileInfo = document.getElementById("file-info");
+            const previewContainer = document.getElementById("preview-container");
+            const uploadForm = document.getElementById("upload-form");
+            const loadingIndicator = document.getElementById("loading");
+            const textOutput = document.getElementById("text-output");
+            const charCount = document.getElementById("char-count");
+            const wordCount = document.getElementById("word-count");
+            const copyButton = document.getElementById("copy-button");
+            const downloadTxtButton = document.getElementById("download-txt-button");
+            const downloadPdfButton = document.getElementById("download-pdf-button");
+            const clearButton = document.getElementById("clear-button");
+            const toast = document.getElementById("toast");
+            const resultSection = document.getElementById("result-section");
+
+            toggleClearButton(false); // Hide clear button on page load
+
+            function handleFileSelect(file) {
+                if (file) {
+                    fileInfo.textContent = `Selected file: ${file.name}`;
+                    showPreview(file);
+                    toggleClearButton(true); // Show clear button
+                } else {
+                    fileInfo.textContent = "";
+                    previewContainer.innerHTML = "";
+                    toggleClearButton(false); // Hide clear button
+                }
+            }
+
+            if (dropzone) {
+                dropzone.addEventListener("click", () => fileInput.click());
+                dropzone.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add("drag-over");
+                });
+                dropzone.addEventListener("dragleave", () =>
+                    dropzone.classList.remove("drag-over")
+                );
+                dropzone.addEventListener("drop", (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove("drag-over");
+                    handleFileSelect(e.dataTransfer.files[0]);
+                });
+            }
+            if (fileInput) {
+                fileInput.addEventListener("change", () =>
+                    handleFileSelect(fileInput.files[0])
+                );
+            }
+
+            function showPreview(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewContainer.innerHTML = "";
+                    if (file.type.startsWith("image/")) {
+                        const img = document.createElement("img");
+                        img.src = e.target.result;
+                        previewContainer.appendChild(img);
+                    } else if (file.type === "application/pdf") {
+                        const embed = document.createElement("embed");
+                        embed.src = e.target.result;
+                        embed.type = "application/pdf";
+                        embed.width = "100%";
+                        embed.height = "100%";
+                        previewContainer.appendChild(embed);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Dummy Text extraction
+            if (uploadForm) {
+                uploadForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    if (!isLoggedIn) {
+                        showToast("Please log in to upload files.", "error");
+                        showPage('login-page');
+                        return;
+                    }
+
+                    const file = fileInput.files[0];
+                    if (!file) {
+                        showToast("Please select a file", "error");
+                        return;
+                    }
+
+                    loadingIndicator.style.display = "block";
+
+                    // Simulate API call delay
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+
+                    // Dummy extracted text
+                    const dummyText = `This is dummy extracted text from your file: ${file.name}.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+
+                    textOutput.value = dummyText;
+                    updateTextStats();
+                    resultSection.style.display = "block";
+                    showToast("Text extracted successfully (dummy)", "success");
+
+                    loadingIndicator.style.display = "none";
+                });
+            }
+
+            // Text statistics
+            if (textOutput) {
+                textOutput.addEventListener("input", updateTextStats);
+            }
+
+            function updateTextStats() {
+                const text = textOutput.value;
+                charCount.textContent = text.length;
+                wordCount.textContent = text
+                    .trim()
+                    .split(/\s+/)
+                    .filter(Boolean).length;
+            }
+
+            // Copy to clipboard
+            if (copyButton) {
+                copyButton.addEventListener("click", () => {
+                    const text = textOutput.value;
+                    if (text.trim() === "") {
+                        showToast("No text to copy", "error");
+                        return;
+                    }
+                    // Using document.execCommand for broader iframe compatibility
+                    textOutput.select();
+                    document.execCommand('copy');
+                    showToast("Text copied to clipboard", "success");
+                });
+            }
+
+            // Download as TXT
+            if (downloadTxtButton) {
+                downloadTxtButton.addEventListener("click", () => {
+                    const text = textOutput.value;
+                    if (text.trim() === "") {
+                        showToast("No text to download", "error");
+                        return;
+                    }
+                    const blob = new Blob([text], { type: "text/plain" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "extracted_text.txt";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            }
+
+            // Download as PDF
+            if (downloadPdfButton) {
+                downloadPdfButton.addEventListener("click", () => {
+                    const text = textOutput.value;
+                    if (text.trim() === "") {
+                        showToast("No text to download", "error");
+                        return;
+                    }
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    const splitText = doc.splitTextToSize(text, 180);
+                    doc.text(splitText, 15, 15);
+                    doc.save("extracted_text.pdf");
+                });
+            }
+
+            // Clear form and result
+            if (clearButton) {
+                clearButton.addEventListener("click", () => {
+                    fileInput.value = '';
+                    fileInfo.textContent = '';
+                    previewContainer.innerHTML = '';
+                    textOutput.value = '';
+                    updateTextStats();
+                    resultSection.style.display = 'none';
+                    toggleClearButton(false); // Hide clear button
+                    showToast('Form cleared', 'success');
+                });
+            }
+
+            function toggleClearButton(show) {
+                if (clearButton) { // Check if clearButton exists before accessing style
+                    clearButton.style.display = show ? "inline-block" : "none";
+                }
+            }
+
+            // Toast notification function
+            function showToast(message, type) {
+                toast.textContent = message;
+                toast.className = `toast ${type}`;
+                toast.style.display = "block";
+                toast.style.opacity = "1";
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    setTimeout(() => {
+                        toast.style.display = "none";
+                    }, 300);
+                }, 3700);
+            }
+
+            // Dummy Contact Form Submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    showToast('Message sent! (Dummy)', 'success');
+                    contactForm.reset(); // Clear form fields
+                });
+            }
+
+            // Logout Functionality
+            window.logoutUser = function() {
+                isLoggedIn = false;
+                showToast('Logged out successfully.', 'success');
+                showPage('login-page'); // Go back to login page
+            };
+
+            // Initial page load: show login page
+            showPage('login-page');
+        });
+    </script>
+</body>
+</html>
